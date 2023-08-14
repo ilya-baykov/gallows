@@ -4,7 +4,7 @@ class FileEditor:
     @staticmethod
     def read_file(filename) -> list:
         with open(filename, "r+", encoding=FileEditor.ENCODING) as content:
-            raw_content = [line.strip() for line in content.readlines() if line.strip()]
+            raw_content = [line.strip().lower() for line in content.readlines() if line.strip()]
             content.seek(0)
             return raw_content
 
@@ -15,5 +15,5 @@ class FileEditor:
                 set_words.write(f"{line}\n")
 
 
-text_raw = FileEditor().read_file("Words_raw")
-FileEditor.creating_final_file(text_raw)
+
+
