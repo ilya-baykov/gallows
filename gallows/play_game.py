@@ -21,6 +21,5 @@ class MainGame(FileEditor):
 
 game = MainGame()
 word = game.get_random_word()
-print(word)
 game.get_length(word)
-print(game)
+
