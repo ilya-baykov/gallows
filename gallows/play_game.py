@@ -13,13 +13,29 @@ class MainGame(FileEditor):
 
     @staticmethod
     def get_length(_word: str):
-        print(len(_word) * ((5 * "\u2014") + "\t"))
+        letter_list = [len(_word) * ((5 * "\u2014") + "\t")]
+        print(*letter_list)
+        return letter_list
 
-    def start_game(self):
-        pass
+    @staticmethod
+    def substitution_letters(_word, _letter, letter_list):
+        for char in range(len(_word)):
+            if _word[char] == _letter:
+                letter_list[char] = _letter
+        return letter_list
+
+    @staticmethod
+    def start_game(_word, _letter_list, life_point=LIFE_POINT):
+        while life_point > 0:
+            letter = input("Введите букву ")
+            if letter in _word:
+                print("ДА!!!")
+            else:
+                life_point -= 1
 
 
 game = MainGame()
 word = game.get_random_word()
-game.get_length(word)
+print(word)
 
+game.start_game(word, game.get_length(word))
