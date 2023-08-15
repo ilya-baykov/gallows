@@ -9,7 +9,8 @@ class MainGame(FileEditor):
         self.life_point = life_point
         self.word = word if word else self.get_random_word()
         self.letter_list = [((5 * "\u2014") + "\t") for i in range(len(self.word))]
-        print(self.letter_list)
+        print(*self.letter_list)
+        self.loose = False
         self.start_game()
 
     def get_random_word(self):
@@ -22,13 +23,20 @@ class MainGame(FileEditor):
                 self.letter_list[char] = _letter
 
     def start_game(self):
-        while self.life_point > 0 or "\u2014" not in self.letter_list:
+        while self.life_point > 0:
             letter = input("Введите букву ")
             if letter in self.word:
                 self.substitution_letters(letter)
-                print(self.letter_list)
+                print(*self.letter_list)
+                if '—————\t' not in self.letter_list:
+                    self.loose = True
+                    break
             else:
                 self.life_point -= 1
+        self.total()
+
+    def total(self):
+        print("Ты выиграл!!!" if self.loose else f"Ты проиграл ;(\nЗагаданное слово - {self.word}")
 
 
 game = MainGame()
