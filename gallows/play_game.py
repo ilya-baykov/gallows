@@ -5,13 +5,26 @@ from fiile_preparation import FileEditor
 
 class MainGame(FileEditor):
 
-    def __init__(self, life_point=7, word=""):
-        self.life_point = life_point
-        self.word = word if word else self.get_random_word()
+    def __init__(self):
+        self.parameters = self.get_parameters()
+        self.word = self.parameters[0]
+        self.life_point = self.parameters[1]
         self.letter_list = [((5 * "\u2014") + "\t") for i in range(len(self.word))]
         print(*self.letter_list)
         self.loose = False
         self.start_game()
+
+    def get_parameters(self) -> list:
+        if "n" in input("Вы хотите сыграть с комьютером ? ( Y / N )\t\t"):
+            _word = input("Загадайте слово второму игроку:\t ")
+        else:
+            _word = self.get_random_word()
+        _life_pointer = input("Введите количество жизней: ( по умолчанию - 7 )\t")
+        if _life_pointer.isdigit():
+            _life_pointer = int(_life_pointer)
+        else:
+            _life_pointer = 7
+        return [_word, _life_pointer]
 
     def get_random_word(self):
         random_word = self.read_file("Words_raw")
